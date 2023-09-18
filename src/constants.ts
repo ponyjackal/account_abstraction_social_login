@@ -14,3 +14,46 @@ export const paymaster: IPaymaster = new BiconomyPaymaster({
   paymasterUrl:
     "https://paymaster.biconomy.io/api/v1/5/P2Fom_4H2.9225c73e-9e2b-4564-a45a-9c734c53388d",
 });
+
+export const USDC_CONTRACT_ADDRESS =
+  "0x2f3a40a3db8a7e3d09b0adfefbce4f6f81927557";
+
+export const ERC20ABI = [
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];

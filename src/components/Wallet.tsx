@@ -7,6 +7,7 @@ import {
   BiconomySmartAccountConfig,
 } from "@biconomy/account";
 import { bundler, paymaster } from "@/constants";
+import Transfer from "./Transfer";
 
 export default function Wallet() {
   const sdkRef = useRef<SocialLogin | null>(null);
@@ -20,7 +21,7 @@ export default function Wallet() {
     if (!sdkRef.current) {
       const socialLoginSDK = new SocialLogin();
       await socialLoginSDK.init({
-        chainId: ethers.utils.hexValue(ChainId.POLYGON_MUMBAI).toString(),
+        chainId: ethers.utils.hexValue(ChainId.GOERLI).toString(),
         network: "testnet",
       });
       sdkRef.current = socialLoginSDK;
@@ -54,13 +55,14 @@ export default function Wallet() {
       setProvider(web3Provider);
       const config: BiconomySmartAccountConfig = {
         signer: web3Provider.getSigner(),
-        chainId: ChainId.POLYGON_MUMBAI,
+        chainId: ChainId.GOERLI,
         bundler: bundler,
         paymaster: paymaster,
       };
       const smartAccount = new BiconomySmartAccount(config);
       await smartAccount.init();
 
+      console.log("smartAccount", smartAccount);
       // Save the smart account to a state variable
       setSmartAccount(smartAccount);
     } catch (e) {
@@ -128,7 +130,10 @@ export default function Wallet() {
         {loading && <p>Loading account details...</p>}
 
         {smartAccount && (
-          <Fragment>{/* Add Transfer Component Here */}</Fragment>
+          <Fragment>
+            {" "}
+            <Transfer smartAccount={smartAccount} />
+          </Fragment>
         )}
       </div>
     </Fragment>
